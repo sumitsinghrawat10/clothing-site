@@ -1,0 +1,25 @@
+#
+# Date         Owner                  Change description
+# 24-Mar-2026  Karthikeyan Annamalai  Draft version of Kubernetes deployment script.
+# 25-Mar-2026  Karthikeyan Annamalai  Bugfix. Fixed selector app name mismatch while binding the service with pod.
+#
+# Connect:     az aks get-credentials --resource-group 'tmtacr' --name 'tmt-aks-dev'
+# Apply:       kubectl apply -f deployment.yaml
+#              kubectl apply -f service.yaml
+#
+# Check:       kubectl get pods
+#              kubectl get svc
+#
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: 'frontend-service'
+spec:
+  type: LoadBalancer
+  selector:
+    app: 'frontend'
+  ports:
+    - protocol: TCP
+      port: 80          # External port
+      targetPort: 80    # Container port

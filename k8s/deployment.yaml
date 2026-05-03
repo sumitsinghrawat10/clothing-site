@@ -1,0 +1,31 @@
+#
+# Date          Owner                   Change description
+# 24-Mar-2026   Karthikeyan Annamalai   Draft version of Kubernetes deployment script.
+#
+# Connect:      az aks get-credentials --resource-group 'tmtacr' --name 'tmt-aks-dev'
+# Apply:        kubectl apply -f deployment.yaml
+#               kubectl apply -f service.yaml
+#
+# Check:        kubectl get pods
+#               kubectl get svc
+#
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'frontend'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: 'frontend'
+  template:
+    metadata:
+      labels:
+        app: 'frontend'
+    spec:
+      containers:
+      - name: 'compass-frontend'
+        image: 'tmtacr01-bwfcbshhgadta8cy.azurecr.io/compass-frontend:latest'
+        ports:
+        - containerPort: 80
